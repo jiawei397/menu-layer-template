@@ -1,18 +1,18 @@
 uinv.layerUserConfig = [{
   name: '显示物体',
   isChecked: false,
-  initCB: function (menuItem) {
+  initCB (menuItem) {
     menuItem.initCheckState();
   },
-  itemClickCB: function (menuItem) {
+  itemClickCB: (menuItem)=> {
     // console.warn(menuItem.name);
-    var userConfig = uinv.layerManager.getUserParamterConfig(uinv.selectionTools.getSelRootObj(), menuItem.name);//第2个参数为图层名称
+    const userConfig = uinv.layerManager.getUserParamterConfig(uinv.selectionTools.getSelRootObj(), menuItem.name);//第2个参数为图层名称
     if (!userConfig || !userConfig.query) {
       console.error('未获取到条件！');
       return;
     }
     menuItem.changeCheckState();
-    var layer = uinv.layerManager.getLayer(menuItem.name);
+    const layer = uinv.layerManager.getLayer(menuItem.name);
     layer.selTypeParam = userConfig.query;
     layer.show(menuItem.isChecked);
   },
