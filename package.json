@@ -1,5 +1,5 @@
 {
-  "name": "menu-template",
+  "name": "menu-layer-template",
   "version": "1.0.0",
   "scripts": {
     "zip": "./node_modules/.bin/gulp"
