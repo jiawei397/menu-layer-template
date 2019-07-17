@@ -12,6 +12,8 @@ const fs = require('fs');
 const utils = require('util');
 const readdir = utils.promisify(fs.readdir);
 const babel = require('gulp-babel');
+const path = require('path');
+const chalk = require('chalk');
 /**
  * @param {String} fileName 要压缩的js文件名称
  * @param {String} filePath 要压缩的js文件路径
@@ -24,7 +26,7 @@ let zipFrame = function (fileName, filePath, destPath = 'dist') {
     fileName = fileName.substring(0, fileName.length - 3);
   }
   let zipName = fileName + '_' + dateFormat(new Date(), 'yyyymmdd') + '.zip';
-  return gulp.src([filePath + fileName + '.js'])
+  return gulp.src(path.resolve(filePath, fileName + '.js'))
     .pipe(babel())
     .pipe(uglify())
     .pipe(rename('frame.js'))
@@ -41,8 +43,10 @@ gulp.task('default', function () {
     return Promise.all(arr.map((fileName) => {
       return zipFrame(fileName, filePath);
     }));
-  }, ()=>{
-    console.log('没有找到文件');
+  }, () => {
+    console.log(`${chalk.red('没有找到文件')}`);
+  }).catch((err) => {
+    console.log(`${chalk.red(err)}`);
   });
 });
 
