@@ -16,6 +16,12 @@ uinv.layerUserConfig = [{
     layer.selTypeParam = userConfig.query;
     layer.show(menuItem.isChecked);
   },
+  itemLeaveCB: function (menuItem) {
+    console.log('----------leave----------');
+    if (menuItem.isChecked) {
+      menuItem.changeCheckState();
+    }
+  },
   itemConfig: [
     {
       'name': 'query',//获取到整个配置项后的Key
